@@ -13,6 +13,10 @@
 		C938C7D42AFAE94C007BB428 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C938C7D22AFAE94C007BB428 /* InitialViewController.swift */; };
 		C938C7D52AFAE94C007BB428 /* InitialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C938C7D32AFAE94C007BB428 /* InitialViewController.xib */; };
 		C938C7D82AFAEF2C007BB428 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C938C7D72AFAEF2C007BB428 /* SceneDelegate.swift */; };
+		C938C7DB2AFAF196007BB428 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C938C7DA2AFAF196007BB428 /* NetworkManager.swift */; };
+		C938C7DD2AFAF281007BB428 /* WeatherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C938C7DC2AFAF281007BB428 /* WeatherManager.swift */; };
+		C938C7DF2AFAF3F1007BB428 /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C938C7DE2AFAF3F1007BB428 /* WeatherData.swift */; };
+		C938C7E12AFAF41C007BB428 /* WeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C938C7E02AFAF41C007BB428 /* WeatherModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +28,10 @@
 		C938C7D22AFAE94C007BB428 /* InitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
 		C938C7D32AFAE94C007BB428 /* InitialViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InitialViewController.xib; sourceTree = "<group>"; };
 		C938C7D72AFAEF2C007BB428 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		C938C7DA2AFAF196007BB428 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		C938C7DC2AFAF281007BB428 /* WeatherManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherManager.swift; sourceTree = "<group>"; };
+		C938C7DE2AFAF3F1007BB428 /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
+		C938C7E02AFAF41C007BB428 /* WeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +64,7 @@
 		C938C7BD2AFADF0A007BB428 /* vai_chover */ = {
 			isa = PBXGroup;
 			children = (
+				C938C7D92AFAF16A007BB428 /* Networking */,
 				C938C7D62AFAE952007BB428 /* View */,
 				C938C7BE2AFADF0A007BB428 /* AppDelegate.swift */,
 				C938C7D72AFAEF2C007BB428 /* SceneDelegate.swift */,
@@ -73,6 +82,17 @@
 				C938C7D32AFAE94C007BB428 /* InitialViewController.xib */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		C938C7D92AFAF16A007BB428 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				C938C7DA2AFAF196007BB428 /* NetworkManager.swift */,
+				C938C7DC2AFAF281007BB428 /* WeatherManager.swift */,
+				C938C7DE2AFAF3F1007BB428 /* WeatherData.swift */,
+				C938C7E02AFAF41C007BB428 /* WeatherModel.swift */,
+			);
+			path = Networking;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -146,8 +166,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C938C7DB2AFAF196007BB428 /* NetworkManager.swift in Sources */,
 				C938C7BF2AFADF0A007BB428 /* AppDelegate.swift in Sources */,
+				C938C7DD2AFAF281007BB428 /* WeatherManager.swift in Sources */,
+				C938C7E12AFAF41C007BB428 /* WeatherModel.swift in Sources */,
 				C938C7D42AFAE94C007BB428 /* InitialViewController.swift in Sources */,
+				C938C7DF2AFAF3F1007BB428 /* WeatherData.swift in Sources */,
 				C938C7D82AFAEF2C007BB428 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -291,6 +315,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = vai_chover/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Desejamos usar sua localização para retornar informações.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
@@ -324,6 +349,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = vai_chover/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Desejamos usar sua localização para retornar informações.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
