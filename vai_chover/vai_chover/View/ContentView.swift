@@ -134,16 +134,20 @@ struct ContentViewExe: View {
                 
                 VStack(spacing: 12) {
                     if viewModel.weather != nil {
-                        Text("Temperature: \(viewModel.temperature)C")
+                        Text("\(viewModel.temperature)C")
+                            .font(.system(size: 100))
+                            .bold()
+                        
                         Text("Description: \(viewModel.weather?.name ?? "")")
                     } else {
                         Text("Loading weather data...")
                     }
                 }
+                .frame(maxWidth: .infinity, maxHeight: 200)
                 .foregroundStyle(Color.white)
-                .padding(.horizontal, 30)
-                .padding(.top, 35)
-                .padding(.bottom, 25)
+//                .padding(.horizontal, 30)
+//                .padding(.top, 35)
+//                .padding(.bottom, 25)
                 .contentShape(Rectangle())
                 .background {
                     RoundedRectangle(cornerRadius: 10, style: .continuous)
@@ -163,54 +167,8 @@ struct ContentViewExe: View {
         .preferredColorScheme(isDarkModeOn ? .dark : .light)
         .background {
             Rectangle()
-                .fill(CustomTheme.bg100.color)
+                .fill(isDarkModeOn ? CustomTheme.bg100.color : .black)
                 .ignoresSafeArea()
         }
     }
 }
-
-
-class LocationDelegate: NSObject, ObservableObject, CLLocationManagerDelegate {
-    @Published var userLocation: CLLocation?
-
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.first else { return }
-        userLocation = location
-        manager.stopUpdatingLocation()
-    }
-
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("Error getting location: \(error.localizedDescription)")
-    }
-
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        switch status {
-        case .authorizedWhenInUse:
-            manager.requestLocation()
-        case .denied, .restricted:
-            print("Location authorization not granted.")
-        default:
-            break
-        }
-    }
-    
-    func requestLocation() {
-        let locationManager = CLLocationManager()
-        locationManager.delegate = self
-
-        if CLLocationManager.locationServicesEnabled() {
-            if locationManager.authorizationStatus == .notDetermined {
-                locationManager.requestWhenInUseAuthorization()
-            } else {
-                locationManager.requestLocation()
-            }
-        } else {
-            print("Location services not enabled.")
-        }
-    }
-}
-
-/*
- Cores
- 00BCFF - azul
- */
