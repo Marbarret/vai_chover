@@ -12,7 +12,7 @@ struct HeaderView: View {
             ZStack {
                 Capsule()
                     .frame(width: 80, height: 44)
-                    .foregroundColor(isDarkModeOn ? .black.opacity(0.4) : .white)
+                    .foregroundColor(isDarkModeOn ? .white : .black.opacity(0.4))
                 ZStack{
                     Circle()
                         .frame(width:40, height:40)

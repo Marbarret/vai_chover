@@ -132,41 +132,22 @@ struct ContentViewExe: View {
                     .flatMap { ($0 as? UIWindowScene)?.windows ?? [] }
                     .first { $0.isKeyWindow }?.safeAreaInsets.top)
                 
-                VStack {
-                    Text("Weather Information")
-                        .font(.title)
-                    
-                    if viewModel.weather != nil {
-                        Text("Temperature: \(viewModel.temperature)")
-                        Text("Description: \(viewModel.weather?.name ?? "")")
-                    } else {
-                        Text("Loading weather data...")
-                    }
-                    
-                    Button("Get Weather") {
-                        Task {
-                            viewModel.fetchWeather()
-                        }
-                    }
-                }
-                
-                Spacer()
                 VStack(spacing: 12) {
                     if viewModel.weather != nil {
-                        Text("Temperature: \(viewModel.temperature)")
+                        Text("Temperature: \(viewModel.temperature)C")
                         Text("Description: \(viewModel.weather?.name ?? "")")
                     } else {
                         Text("Loading weather data...")
                     }
                 }
-                .foregroundStyle(Color.blue)
+                .foregroundStyle(Color.white)
                 .padding(.horizontal, 30)
                 .padding(.top, 35)
                 .padding(.bottom, 25)
                 .contentShape(Rectangle())
                 .background {
                     RoundedRectangle(cornerRadius: 10, style: .continuous)
-                        .fill(Color.blue)
+                        .fill(CustomTheme.primary100.color)
                         .overlay(
                             RoundedRectangle(cornerRadius: 10, style: .continuous)
                                 .stroke(Color.black.opacity(0.02), lineWidth: 1.5)
@@ -174,15 +155,17 @@ struct ContentViewExe: View {
                 }
                 .shadow(color: .black.opacity(0.2), radius: 5)
                 .padding(.horizontal, 15)
+                
+                Spacer()
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .preferredColorScheme(isDarkModeOn ? .dark : .light)
-//        .background {
-//            Rectangle()
-//                .fill(Color.gray.opacity(0.5))
-//                .ignoresSafeArea()
-//        }
+        .background {
+            Rectangle()
+                .fill(CustomTheme.bg100.color)
+                .ignoresSafeArea()
+        }
     }
 }
 
