@@ -5,6 +5,7 @@ class WeatherViewModel: ObservableObject {
     @Published var weather: WeatherResponse?
     @Published var isLoading: Bool = false
     @Published var userLocation: CLLocation?
+    @Published var currentWeatherCondition: WeatherCondition = .clearSky
     
     var system: Int = 0
     let weatherService = WeatherService(providerApi: ProviderWeatherAPI())
@@ -23,13 +24,27 @@ class WeatherViewModel: ObservableObject {
             guard let self = self else { return }
             switch result {
             case .success(let weather):
-                self.handleWeatherResponse(weather)
+                self.weather = weather
+                if let weatherDescription = weather.weather.first?.description {
+                    self.currentWeatherCondition = WeatherCondition(description: weatherDescription)
+                }
             case .failure(let apiError):
                 self.handleError(apiError)
             }
         }
     }
     
+    private func updateWeatherCondition(description: String) {
+        let isNight = isNightTime()
+        currentWeatherCondition = WeatherCondition(description: description, isNight: isNight)
+    }
+    
+    private func isNightTime() -> Bool {
+        let currentDate = Date()
+        let calendar = Calendar.current
+        let hour = calendar.component(.hour, from: currentDate)
+        return hour < 6 || hour >= 18
+    }
     
     private func getWeatherForecast(location: String) {
         isLoading = true
@@ -79,6 +94,33 @@ class WeatherViewModel: ObservableObject {
         formatter.dateFormat = "d/M E"
         return formatter
     }()
+    
+    func hasRainForecast() -> Bool {
+        guard let weather = weather,
+              let weatherCondition = weather.weather.first else {
+            return false
+        }
+        let isRainCondition = weatherCondition.main.lowercased() == "rain"
+        let isLightRain = weatherCondition.description.lowercased().contains("light")
+        return isRainCondition && isLightRain
+    }
+    
+    func calculateRainProbability() -> Int {
+        guard let weather = weather,
+              let weatherCondition = weather.weather.first else {
+            return 0
+        }
+        
+        var rainProbability = 0
+        if weatherCondition.main.lowercased() == "rain" {
+            rainProbability += 50
+        }
+        
+        if weatherCondition.description.lowercased().contains("light") {
+            rainProbability += 20
+        }
+        return min(max(rainProbability, 0), 100)
+    }
 }
 
 extension WeatherViewModel {
@@ -116,12 +158,49 @@ extension WeatherViewModel {
     }
     
     var high: String {
-        return "H: \(Self.numberFormatter.string(for: convert(weather?.main.tempMax ?? 0.0)) ?? "0")°"
+        return "\(Self.numberFormatter.string(for: convert(weather?.main.tempMax ?? 0.0)) ?? "0")°"
     }
     
     var low: String {
-        return "L: \(Self.numberFormatter.string(for: convert(weather?.main.tempMin ?? 0.0)) ?? "0")°"
+        return "\(Self.numberFormatter.string(for: convert(weather?.main.tempMin ?? 0.0)) ?? "0")°"
     }
+    
+    var name: String {
+        return weather?.name ?? ""
+    }
+    
+    var day: String {
+        return weeklyDay.string(from: Date(timeIntervalSince1970: TimeInterval(weather?.dt ?? 0)))
+    }
+    
+//    var overview: String {
+//    return weather.list[0].weather[0].description.capitalized
+//    }
+    
+    
+    var feels: String {
+        return "\(Self.numberFormatter.string(for: convert(weather?.main.feelsLike ?? 0)) ?? "0")°"
+    }
+    
+//    var pop: String {
+//    return "\(Self.numberFormatter2.string(for: weather.list[0].pop.roundDouble()) ?? "0%")"
+//    }
+//
+//    var main: String {
+//    return "\(weather[0].weather[0].main)"
+//    }
+//
+//    var clouds: String {
+//        return "\(weather?.clouds ?? .none)%"
+//    }
+//
+//    var humidity: String {
+//    return "\(weather.list[0].main.humidity.roundDouble())%"
+//    }
+//
+//    var wind: String {
+//    return "\(Self.numberFormatter.string(for: weather.list[0].wind.speed) ?? "0")m/s"
+//    }
     
     static var numberFormatter: NumberFormatter {
         let numberFormatter = NumberFormatter()

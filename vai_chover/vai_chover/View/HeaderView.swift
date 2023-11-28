@@ -4,27 +4,11 @@ import CoreLocation
 struct HeaderView: View {
     @StateObject private var locationDelegate = LocationDelegate()
     @ObservedObject var viewModel: WeatherViewModel
-    @Binding var isDarkModeOn: Bool
+    
     var onLocationUpdate: ((CLLocation) -> Void)
     
     var body: some View {
         HStack {
-            ZStack {
-                ZStack{
-                    Circle()
-                        .frame(width: 50, height: 50)
-                        .foregroundColor(isDarkModeOn ? .white : .black)
-                    Image(systemName: isDarkModeOn ? "sun.max.fill" : "moon.fill")
-                        .foregroundColor(isDarkModeOn ? .black : .white)
-                    
-                }
-                .shadow(color: .black.opacity(0.14), radius: 4, x: 0, y: 2)
-                .padding(24)
-                .animation(.spring())
-            }
-            .onTapGesture {
-                self.isDarkModeOn.toggle()
-            }
             
             Spacer()
             
@@ -50,6 +34,30 @@ struct HeaderView: View {
             if let userLocation = userLocation {
                 onLocationUpdate(userLocation)
             }
+        }
+    }
+}
+
+struct FooterView: View {
+    @Binding var isDarkModeOn: Bool
+    
+    var body: some View {
+        HStack {
+            Spacer()
+            
+            ZStack{
+                Circle()
+                    .frame(width: 50, height: 50)
+                    .foregroundColor(isDarkModeOn ? .black : .white)
+                Image(systemName: isDarkModeOn ? "sun.max.fill" : "moon.fill")
+                    .foregroundColor(isDarkModeOn ? .white : .black)
+                
+            }
+            .shadow(color: .black.opacity(0.14), radius: 4, x: 0, y: 2)
+            .padding(24)
+        }
+        .onTapGesture {
+            self.isDarkModeOn.toggle()
         }
     }
 }

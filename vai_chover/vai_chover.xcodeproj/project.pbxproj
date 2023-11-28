@@ -16,6 +16,16 @@
 		C976ADD72B13DC08008983E6 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C976ADD62B13DC08008983E6 /* HeaderView.swift */; };
 		C9DCC4B52B14B986004EC787 /* CustomTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DCC4B42B14B986004EC787 /* CustomTheme.swift */; };
 		C9DCC4B72B14D88B004EC787 /* LocationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DCC4B62B14D88B004EC787 /* LocationDelegate.swift */; };
+		C9DCC4BB2B154EA1004EC787 /* WeatherCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DCC4BA2B154EA1004EC787 /* WeatherCondition.swift */; };
+		C9FD74512B167476009E5707 /* Inter-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C9FD74482B167473009E5707 /* Inter-SemiBold.ttf */; };
+		C9FD74522B167476009E5707 /* Inter-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C9FD74492B167473009E5707 /* Inter-Regular.ttf */; };
+		C9FD74532B167476009E5707 /* Inter-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C9FD744A2B167473009E5707 /* Inter-Medium.ttf */; };
+		C9FD74542B167476009E5707 /* Inter-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C9FD744B2B167474009E5707 /* Inter-Black.ttf */; };
+		C9FD74552B167476009E5707 /* Inter-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C9FD744C2B167474009E5707 /* Inter-Bold.ttf */; };
+		C9FD74562B167476009E5707 /* Inter-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C9FD744D2B167475009E5707 /* Inter-Thin.ttf */; };
+		C9FD74572B167476009E5707 /* Inter-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C9FD744E2B167475009E5707 /* Inter-ExtraLight.ttf */; };
+		C9FD74582B167476009E5707 /* Inter-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C9FD744F2B167475009E5707 /* Inter-Light.ttf */; };
+		C9FD74592B167476009E5707 /* Inter-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C9FD74502B167476009E5707 /* Inter-ExtraBold.ttf */; };
 		C9FF4A742B0BD4BF00A50FE6 /* vai_choverApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FF4A732B0BD4BF00A50FE6 /* vai_choverApp.swift */; };
 		C9FF4A762B0BD4BF00A50FE6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FF4A752B0BD4BF00A50FE6 /* ContentView.swift */; };
 		C9FF4A782B0BD4C500A50FE6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9FF4A772B0BD4C500A50FE6 /* Assets.xcassets */; };
@@ -32,6 +42,16 @@
 		C976ADD62B13DC08008983E6 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		C9DCC4B42B14B986004EC787 /* CustomTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTheme.swift; sourceTree = "<group>"; };
 		C9DCC4B62B14D88B004EC787 /* LocationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDelegate.swift; sourceTree = "<group>"; };
+		C9DCC4BA2B154EA1004EC787 /* WeatherCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherCondition.swift; sourceTree = "<group>"; };
+		C9FD74482B167473009E5707 /* Inter-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-SemiBold.ttf"; sourceTree = "<group>"; };
+		C9FD74492B167473009E5707 /* Inter-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Regular.ttf"; sourceTree = "<group>"; };
+		C9FD744A2B167473009E5707 /* Inter-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Medium.ttf"; sourceTree = "<group>"; };
+		C9FD744B2B167474009E5707 /* Inter-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Black.ttf"; sourceTree = "<group>"; };
+		C9FD744C2B167474009E5707 /* Inter-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Bold.ttf"; sourceTree = "<group>"; };
+		C9FD744D2B167475009E5707 /* Inter-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Thin.ttf"; sourceTree = "<group>"; };
+		C9FD744E2B167475009E5707 /* Inter-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-ExtraLight.ttf"; sourceTree = "<group>"; };
+		C9FD744F2B167475009E5707 /* Inter-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Light.ttf"; sourceTree = "<group>"; };
+		C9FD74502B167476009E5707 /* Inter-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-ExtraBold.ttf"; sourceTree = "<group>"; };
 		C9FF4A702B0BD4BF00A50FE6 /* vai_chover.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = vai_chover.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9FF4A732B0BD4BF00A50FE6 /* vai_choverApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = vai_choverApp.swift; sourceTree = "<group>"; };
 		C9FF4A752B0BD4BF00A50FE6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -65,10 +85,12 @@
 		C9DCC4B32B14B966004EC787 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				C9FD74472B16745C009E5707 /* Font */,
 				C94BC2C52B12BC9F00A9D03E /* Extension.swift */,
 				C976ADD32B13BDCF008983E6 /* BackgroundView.swift */,
 				C9DCC4B42B14B986004EC787 /* CustomTheme.swift */,
 				C9DCC4B62B14D88B004EC787 /* LocationDelegate.swift */,
+				C9DCC4BA2B154EA1004EC787 /* WeatherCondition.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -88,6 +110,22 @@
 				C94BC2C32B1297F600A9D03E /* WeatherResponse.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		C9FD74472B16745C009E5707 /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				C9FD744B2B167474009E5707 /* Inter-Black.ttf */,
+				C9FD744C2B167474009E5707 /* Inter-Bold.ttf */,
+				C9FD74502B167476009E5707 /* Inter-ExtraBold.ttf */,
+				C9FD744E2B167475009E5707 /* Inter-ExtraLight.ttf */,
+				C9FD744F2B167475009E5707 /* Inter-Light.ttf */,
+				C9FD744A2B167473009E5707 /* Inter-Medium.ttf */,
+				C9FD74492B167473009E5707 /* Inter-Regular.ttf */,
+				C9FD74482B167473009E5707 /* Inter-SemiBold.ttf */,
+				C9FD744D2B167475009E5707 /* Inter-Thin.ttf */,
+			);
+			path = Font;
 			sourceTree = "<group>";
 		};
 		C9FF4A672B0BD4BF00A50FE6 = {
@@ -192,7 +230,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9FD74582B167476009E5707 /* Inter-Light.ttf in Resources */,
+				C9FD74592B167476009E5707 /* Inter-ExtraBold.ttf in Resources */,
+				C9FD74512B167476009E5707 /* Inter-SemiBold.ttf in Resources */,
+				C9FD74542B167476009E5707 /* Inter-Black.ttf in Resources */,
 				C9FF4A7B2B0BD4C500A50FE6 /* Preview Assets.xcassets in Resources */,
+				C9FD74552B167476009E5707 /* Inter-Bold.ttf in Resources */,
+				C9FD74562B167476009E5707 /* Inter-Thin.ttf in Resources */,
+				C9FD74522B167476009E5707 /* Inter-Regular.ttf in Resources */,
+				C9FD74532B167476009E5707 /* Inter-Medium.ttf in Resources */,
+				C9FD74572B167476009E5707 /* Inter-ExtraLight.ttf in Resources */,
 				C9FF4A782B0BD4C500A50FE6 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -208,6 +255,7 @@
 				C9FF4A822B0BF81100A50FE6 /* WeatherAPI.swift in Sources */,
 				C976ADD72B13DC08008983E6 /* HeaderView.swift in Sources */,
 				C94BC2C42B1297F600A9D03E /* WeatherResponse.swift in Sources */,
+				C9DCC4BB2B154EA1004EC787 /* WeatherCondition.swift in Sources */,
 				C976ADD42B13BDCF008983E6 /* BackgroundView.swift in Sources */,
 				C94BC2C22B12979F00A9D03E /* WeatherViewModel.swift in Sources */,
 				C94BC2C62B12BC9F00A9D03E /* Extension.swift in Sources */,
