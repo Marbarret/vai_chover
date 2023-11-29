@@ -14,11 +14,12 @@ class WeatherService {
         var error: Error?
         
         dispatchGroup.enter()
-        provider.providerApi.request(.getWeather(latitude: latitude, longitude: longitude, apiKey: "04abb87ff7de3f5bc0eabb61e318f6b6")) { result in
+        provider.providerApi.request(.getWeather(latitude: latitude, longitude: longitude)) { result in
             switch result {
             case let .success(response):
                 do {
                     weatherResponse = try JSONDecoder().decode(WeatherResponse.self, from: response.data)
+                    print(weatherResponse?.city.name)
                 } catch let decodingError {
                     error = decodingError
                 }

@@ -126,7 +126,7 @@ struct ContentViewExe: View {
                     viewModel.fetchWeather()
                 }
                 .padding(.horizontal, 20)
-                .padding(.bottom, 5)
+                .padding(.bottom, 20)
                 .padding(.top, UIApplication
                     .shared
                     .connectedScenes
@@ -135,17 +135,7 @@ struct ContentViewExe: View {
                 
                 VStack(spacing: 5) {
                     if viewModel.weather != nil {
-                        HStack(spacing: 0) {
                             weatherInformations
-                            
-                            VStack(spacing: 5) {
-                                detailWeather
-                                HStack {
-                                    temperaturaMax
-                                    temperaturaMin
-                                }
-                            }
-                        }
                     } else {
                         Text("Loading weather data...")
                             .font(CustomTheme.fontLightInter(size: 20))
@@ -158,8 +148,16 @@ struct ContentViewExe: View {
                 
                 Rectangle()
                     .frame(height: 1.5)
-                    .foregroundColor(CustomTheme.primary300.color.opacity(0.4))
+                    .foregroundColor(CustomTheme.accent200.color.opacity(0.4))
                     .padding([.top, .horizontal], 15)
+                
+                    HStack {
+                        detailWeather
+                        
+                        TemperatureComp(imageName: "thermometer.high", title: "Max", temperature: viewModel.high)
+                        TemperatureComp(imageName: "thermometer.low", title: "Min", temperature: viewModel.low)
+                    }
+                
                 
                 TempRow()
                 
@@ -196,64 +194,25 @@ extension ContentViewExe {
         .cornerRadius(12)
     }
     
-    var temperaturaMax: some View {
-        VStack(alignment: .center, spacing: 5) {
-            Image(systemName: "thermometer.high")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 30, height: 30)
-            
-            Text("Max")
-                .font(CustomTheme.fontRegularInter(size: 14))
-                .foregroundColor(CustomTheme.text100.color)
-            
-            Text("\(viewModel.high)C")
-                .foregroundColor(CustomTheme.text100.color)
-                .font(CustomTheme.fontBoldInter(size: 20))
-        }
-        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
-        .padding(10)
-        .background(CustomTheme.bg200.color)
-        .cornerRadius(12)
-    }
-    
-    var temperaturaMin: some View {
-        VStack(alignment: .center, spacing: 5) {
-            Image(systemName: "thermometer.low")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 30, height: 30)
-            
-            Text("Min.")
-                .font(CustomTheme.fontRegularInter(size: 14))
-                .foregroundColor(CustomTheme.text100.color)
-            
-            Text("\(viewModel.low)C")
-                .foregroundColor(CustomTheme.text100.color)
-                .font(CustomTheme.fontBoldInter(size: 20))
-        }
-        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
-        .padding(10)
-        .background(CustomTheme.bg200.color)
-        .cornerRadius(12)
-    }
-    
     var weatherInformations: some View {
         VStack(spacing: 10) {
-            viewModel.currentWeatherCondition.image
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 100, height: 100)
-            
-            Text("\(viewModel.temperature)C")
-                .foregroundColor(CustomTheme.text100.color)
-                .font(CustomTheme.fontBlacktInter(size: 40))
-                .bold()
-                .offset(y: -20)
+            HStack {
+//                Text("\(viewModel.weather?.main)")
+                
+                viewModel.currentWeatherCondition.image
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 150, height: 150)
+                
+                Text("\(viewModel.temperature)C")
+                    .foregroundColor(CustomTheme.text300.color)
+                    .font(CustomTheme.fontBlacktInter(size: 50))
+                    .bold()
+            }
             
             VStack(alignment: .center) {
                 Text("\(viewModel.name)")
-                    .foregroundColor(CustomTheme.text100.color)
+                    .foregroundColor(CustomTheme.text300.color)
                     .font(CustomTheme.fontBoldInter(size: 22))
                 
                 Text("\(viewModel.day)")
@@ -262,6 +221,7 @@ extension ContentViewExe {
             }
             .padding(.top, 20)
         }
+        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
         .padding(.horizontal, 15)
     }
 }
