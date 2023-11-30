@@ -6,24 +6,34 @@ struct TemperatureComp: View {
     var temperature: String
     
     var body: some View {
-        VStack(alignment: .center, spacing: 5) {
-            Image(systemName: imageName)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .foregroundColor(CustomTheme.text100.color)
-                .frame(width: 30, height: 30)
+        ZStack {
+            Rectangle()
+                .foregroundColor(.clear)
+                .frame(width: 148, height: 66)
+                .cornerRadius(10)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .inset(by: 0.5)
+                        .stroke(CustomTheme.primary200.color.opacity(0.3), lineWidth: 1)
+                )
             
-            Text(title)
-                .font(CustomTheme.fontRegularInter(size: 14))
-                .foregroundColor(CustomTheme.text100.color)
-            
-            Text("\(temperature)C")
-                .foregroundColor(CustomTheme.text100.color)
-                .font(CustomTheme.fontBoldInter(size: 20))
+            HStack(spacing: 10) {
+                Image(systemName: imageName)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 30, height: 30)
+                
+                VStack(alignment: .leading) {
+                    Text(title)
+                        .font(CustomTheme.fontMediumInter(size: 10))
+                        .foregroundColor(CustomTheme.text200.color)
+                    
+                    Text("\(temperature)")
+                        .foregroundColor(CustomTheme.text100.color)
+                        .font(CustomTheme.fontBoldInter(size: 17))
+                }
+            }
         }
-        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
-        .padding(10)
-        .background(CustomTheme.bg200.color)
-        .cornerRadius(12)
     }
 }
+

@@ -6,7 +6,14 @@ struct SearchView: View {
     var action: () -> Void
    
     var body: some View {
-        VStack(alignment: .leading, spacing: 5) {
+        ZStack {
+            Rectangle()
+                .frame(maxWidth: .infinity, maxHeight: 35)
+                .overlay {
+                    CustomTheme.bg300.color
+                }
+                .cornerRadius(10)
+            
             HStack {
                 Button {
                     action()
@@ -15,8 +22,8 @@ struct SearchView: View {
                     Image(systemName: "magnifyingglass")
                         .resizable()
                         .scaledToFit()
-                        .foregroundColor(CustomTheme.bg300.color)
-                        .frame(width: 20, height: 20)
+                        .foregroundColor(CustomTheme.bg200.color)
+                        .frame(width: 24, height: 24)
                 }
                 .padding(.horizontal, 10)
                 
@@ -24,8 +31,6 @@ struct SearchView: View {
                     .foregroundColor(CustomTheme.text200.color)
             }
         }
-        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 50)
-        .background(CustomTheme.bg200.color)
-        .cornerRadius(15)
+        .padding(10)
     }
 }

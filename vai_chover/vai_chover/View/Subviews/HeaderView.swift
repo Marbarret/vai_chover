@@ -20,17 +20,21 @@ struct HeaderView: View {
                 ZStack {
                     Circle()
                         .fill(Color.white)
-                        .frame(width: 50, height: 50, alignment: .center)
-                        .shadow(color: Color.black.opacity(0.05), radius: 5, x: 0, y: 5)
+                        .frame(width: 35, height: 35, alignment: .center)
+                        .overlay(
+                            Circle()
+                                .stroke(Color(red: 0.35, green: 0.65, blue: 0.96).opacity(0.2), lineWidth: 1)
+                        )
                     
                     Image("location")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .foregroundColor(.black)
-                        .frame(width: 30, height: 30, alignment: .center)
+                        .frame(width: 22, height: 22, alignment: .center)
                 }
             }
         }
+        .padding(.bottom, 40)
         .onAppear {
             locationDelegate.requestLocation()
         }

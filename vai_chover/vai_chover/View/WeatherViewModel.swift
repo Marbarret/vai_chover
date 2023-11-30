@@ -200,9 +200,9 @@ extension WeatherViewModel {
         return "\(String(describing: weather?.list[0].clouds ?? .none))%"
     }
     //
-    //    var humidity: String {
-    //        return "\(weather?.main.humidity.roundDouble())%"
-    //    }
+        var humidity: String {
+            return "\(String(describing: weather?.list[0].main.humidity.roundInt()))%"
+        }
     //
     var wind: String {
         return "\(Self.numberFormatter.string(for: weather?.list[0].wind) ?? "0")m/s"
