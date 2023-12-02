@@ -1,8 +1,16 @@
 import SwiftUI
 import CoreLocation
 
+struct HourlyWeatherInfo: Hashable, Identifiable {
+    var id = UUID().uuidString
+    let date: String
+    let temperature: Double
+    let weatherDescription: String
+}
+
 class WeatherViewModel: ObservableObject {
     @Published var weather: WeatherResponse?
+    @Published var hourlyWeather: [HourlyWeatherInfo] = []
     @Published var isLoading: Bool = false
     @Published var userLocation: CLLocation?
     @Published var currentWeatherCondition: WeatherCondition = .clearSky
@@ -19,6 +27,7 @@ class WeatherViewModel: ObservableObject {
             switch result {
             case .success(let response):
                 self.weather = response
+                self.hourlyWeather = self.getHourlyWeatherForecast(from: response)
             case .failure(let failure):
                 self.handleError(failure)
             }
@@ -35,10 +44,24 @@ class WeatherViewModel: ObservableObject {
             switch result {
             case .success(let response):
                 self.weather = response
+                self.hourlyWeather = self.getHourlyWeatherForecast(from: response)
             case .failure(let failure):
                 self.handleError(failure)
             }
         }
+    }
+    
+    func getHourlyWeatherForecast(from data: WeatherResponse) -> [HourlyWeatherInfo] {
+        let hourlyList = data.list
+
+        let hourlyWeatherForecast: [HourlyWeatherInfo] = hourlyList.map { hourData in
+            let date = formatHourTime(hourData.dtTxt)
+            let temperature = hourData.main.temp
+            let weatherDescription = hourData.weather.first?.description ?? "N/A"
+
+            return HourlyWeatherInfo(date: date, temperature: temperature, weatherDescription: weatherDescription)
+        }
+        return hourlyWeatherForecast
     }
     
     private func updateWeatherCondition(description: String) {
@@ -96,43 +119,37 @@ class WeatherViewModel: ObservableObject {
         }
     }
     
-    let weeklyDay: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "d/M"
-        return formatter
-    }()
-    
     func hasRainForecast() -> Bool {
         guard let forecasts = weather?.list else {
             return false
         }
-
+        
         for forecast in forecasts {
             if let rain = forecast.rain {
                 return rain.the3H > 0
             }
         }
-
+        
         return false
     }
-
+    
     func calculateRainProbability() -> Int {
         guard let forecasts = weather?.list else {
             return 0
         }
-
+        
         var rainProbability = 0
-
+        
         for forecast in forecasts {
             if let rain = forecast.rain {
                 rainProbability += Int(rain.the3H)
             }
-
+            
             if let weatherCondition = forecast.weather.first,
                weatherCondition.main == .rain {
                 rainProbability += 50
             }
-
+            
             if let weatherCondition = forecast.weather.first,
                weatherCondition.description.lowercased().contains("light") {
                 rainProbability += 20
@@ -143,24 +160,37 @@ class WeatherViewModel: ObservableObject {
 }
 
 extension WeatherViewModel {
-    func formattedTime(from string: String,  timeZoneOffset: Double) -> String? {
-        let inputFormatter = DateFormatter()
-        inputFormatter.dateFormat = "dd/MM/YY"
+    func formatDate(_ date: Date, format: String, timeZone: TimeZone? = nil) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
         
-        if let date = inputFormatter.date(from: string) {
-            let formatter = DateFormatter()
-            formatter.timeZone = TimeZone(secondsFromGMT: Int(timeZoneOffset))
-            return weeklyDay.string(from: date)
+        if let timeZone = timeZone {
+            dateFormatter.timeZone = timeZone
         }
-        return nil
+        
+        return dateFormatter.string(from: date)
     }
     
-    func formattedHourlyTime(time: Double, timeZoneOffset: Double) -> String {
-        let date = Date(timeIntervalSince1970: time)
-        let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm"
-        formatter.timeZone = TimeZone(secondsFromGMT: Int(timeZoneOffset))
-        return formatter.string(from: date)
+    func formatDateTime(_ inputDate: String, timeZone: TimeZone? = nil) -> String {
+        let dateFormatterInput = DateFormatter()
+        dateFormatterInput.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        if let date = dateFormatterInput.date(from: inputDate) {
+            return formatDate(date, format: "dd/MM/yyyy", timeZone: timeZone)
+        } else {
+            return ""
+        }
+    }
+    
+    func formatHourTime(_ inputHour: String, timeZone: TimeZone? = nil) -> String {
+        let dateFormatterInput = DateFormatter()
+        dateFormatterInput.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        if let date = dateFormatterInput.date(from: inputHour) {
+            return formatDate(date, format: "HH:mm", timeZone: timeZone)
+        } else {
+            return ""
+        }
     }
     
     func convert(_ temp: Double) -> Double {
@@ -170,6 +200,22 @@ extension WeatherViewModel {
         } else {
             return celsius * 9 / 5 + 32
         }
+    }
+    
+    var dateFor3Times: String {
+        return "\(String(describing: formatDateTime(hourlyWeather[0].date)))"
+    }
+    
+//    var hourFor3Times: String {
+//        return "\(String(describing: formatHourTime(hourlyWeather[0].date)))"
+//    }
+    
+    var date: String {
+        return "\(String(describing: formatDateTime(weather?.list[0].dtTxt ?? "")))"
+    }
+    
+    var hour: String {
+        return "\(String(describing: formatHourTime(weather?.list[0].dtTxt ?? "")))"
     }
     
     var temperature: String {
@@ -188,10 +234,6 @@ extension WeatherViewModel {
         return weather?.city.name ?? ""
     }
     
-    var day: String {
-        return weeklyDay.string(from: Date(timeIntervalSince1970: TimeInterval(weather?.list[0].dt ?? 0)))
-    }
-    
     var feels: String {
         return "\(Self.numberFormatter.string(for: convert(weather?.list[0].main.feelsLike ?? 0)) ?? "0")°"
     }
@@ -199,14 +241,13 @@ extension WeatherViewModel {
     var clouds: String {
         return "\(String(describing: weather?.list[0].clouds ?? .none))%"
     }
-    //
-        var humidity: String {
-            return "\(String(describing: weather?.list[0].main.humidity.roundInt()))%"
-        }
-    //
+    
+    var humidity: String {
+        return "\(String(describing: weather?.list[0].main.humidity.roundInt()))%"
+    }
+    
     var wind: String {
         return "\(Self.numberFormatter.string(for: weather?.list[0].wind) ?? "0")m/s"
-        //        return "\(Self.numberFormatter.string(for: weather?.wind.speed) ?? "0")m/s"
     }
     
     static var numberFormatter: NumberFormatter {

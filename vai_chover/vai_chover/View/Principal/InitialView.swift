@@ -10,7 +10,6 @@ struct InitialView: View {
     }
     
     var body: some View {
-        BackgroundView {
             VStack {
                 HeaderView(viewModel: viewModel) { location in
                     viewModel.userLocation = location
@@ -25,7 +24,7 @@ struct InitialView: View {
                 
                 VStack(alignment: .leading, spacing: 5) {
                     WeatherInformations(temperature: viewModel.temperature,
-                                        date: viewModel.day,
+                                        date: viewModel.date,
                                         city: viewModel.name,
                                         previsionRain: "\(viewModel.calculateRainProbability())%",
                                         image: viewModel.currentWeatherCondition.imageName)
@@ -36,6 +35,7 @@ struct InitialView: View {
                 .padding(.horizontal, 20)
                 
                 HStack(spacing: 44) {
+                    
                     TemperatureComp(imageName: "thermometer.high", title: "Max", temperature: viewModel.high)
                     TemperatureComp(imageName: "thermometer.low", title: "Min", temperature: viewModel.low)
                 }
@@ -49,17 +49,17 @@ struct InitialView: View {
                 }
                 .padding(.top, 30)
                 .padding(.horizontal, 20)
-                TemperatureRow(imageName: "clear_sky",
-                               date: viewModel.weather?.list[0].dtTxt ?? "",
-                               hour: "12:00",
-                               temperature: viewModel.temperature)
-                
+                ForEach(viewModel.hourlyWeather.prefix(4), id: \.self) { hourly in
+                    TemperatureRow(imageName: "clear_sky",
+                                   date: viewModel.dateFor3Times,
+                                   hour: "\(hourly.date)",
+                                   temperature: "\(hourly.temperature)")
+                }
                 Spacer()
                 
                 FooterView(isDarkModeOn: $isDarkModeOn)
             }
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .preferredColorScheme(isDarkModeOn ? .dark : .light)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .preferredColorScheme(isDarkModeOn ? .dark : .light)
     }
 }
