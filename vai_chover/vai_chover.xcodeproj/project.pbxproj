@@ -100,8 +100,8 @@
 		C976ADD52B13DBEC008983E6 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				C94E91B32B16BB8900882B9E /* Subviews */,
 				C94BC2C12B12979F00A9D03E /* WeatherViewModel.swift */,
+				C94E91B32B16BB8900882B9E /* Subviews */,
 				C9D619912B1833FD00E2E2CF /* Principal */,
 			);
 			path = View;
